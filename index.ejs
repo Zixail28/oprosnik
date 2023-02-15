@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <!-- <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" type="text/css" href="thisDir/style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="./style.css"> -->
+  <title>Опросник</title>
+</head>
+<body>
+
+  <div class="container position-absolute top-50 start-50 translate-middle">
+  <div class="row justify-content-md-center">
+    <div class="col-md-auto px-5">
+      <form method="POST" action="http://<%= domen %>:<%= PORT %>/form">
+        <fieldset class="d-flex flex-column align-items-center">
+          <legend class="fw-bold fs-3 text-center mb-4">Социальный опрос по теме<br/> “Кибербезопасность и кибермошенничество”</legend>
+
+          <div class="mb-3 w-100 select-box">
+            <label for="select1" class="form-label">Как часто вы совершаете покупки в интернет магазинах?</label>
+            <select id="select1" class="form-select" name="shopOnline" required>
+              <option disabled selected value="">Выберите вариант</option>
+              <option value="0">Не совершаю</option>
+              <option value="1">Редко</option>
+              <option value="2">Часто</option>
+            </select>
+          </div>
+
+          <div class="mb-3 w-100 select-box">
+            <label for="select2" class="form-label">Пользуетесь ли вы Интернет-банкингом?</label>
+            <select id="select2" class="form-select" name="internetBank" required>
+              <option disabled selected value="">Выберите вариант</option>
+              <option value="0">Да</option>
+              <option value="1">Нет</option>
+            </select>
+          </div>
+
+          <div class="mb-3 w-100 select-box">
+            <label for="select2" class="form-label">Вы совершаете внутриигровые покупки?</label>
+            <select id="select2" class="form-select" name="ingameBuy" required>
+              <option disabled selected value="">Выберите вариант</option>
+              <option value="0">Да</option>
+              <option value="1">Нет</option>
+            </select>
+          </div>
+
+          <div class="mb-3 w-100 select-box">
+            <label for="select3" class="form-label">Пользуетесь VPN?</label>
+            <select id="select3" class="form-select" name="useVPN" required>
+              <option disabled selected value="">Выберите вариант</option>
+              <option value="0">Да</option>
+              <option value="1">Нет</option>
+            </select>
+          </div>
+
+          <div class="mb-3 w-100 select-box">
+            <label for="select4" class="form-label">Вы становились жертвами мошенников (ваши близкие)?</label>
+            <select id="select4" class="form-select" name="victimScummers" required>
+              <option disabled selected value="">Выберите вариант</option>
+              <option value="0">Да</option>
+              <option value="1">Нет</option>
+            </select>
+          </div>
+
+          <div class="mb-3 w-100 select-box">
+            <label for="select5" class="form-label">Как вы обеспечиваете свою безопасность в интернете?</label>
+            <select id="select5" class="form-select" name="securityInInternet" required>
+              <option disabled selected value="">Выберите вариант</option>
+              <option value="0">Сложные пароли</option>
+              <option value="1">Двухфакторная авторизация(аутентификация)</option>
+              <option value="2">Антивирус</option>
+              <option value="3">Постоянное шифрование</option>
+            </select>
+          </div>
+
+          <div class="mb-3 w-100 select-box">
+            <label for="select6" class="form-label">Происходили ли у вас утечки информации, взломы аккаунтов?</label>
+            <select id="select6" class="form-select" name="leakInfo" required>
+              <option disabled selected value="">Выберите вариант</option>
+              <option value="0">Да</option>
+              <option value="1">Нет</option>
+            </select>
+          </div>
+
+          <div class="mb-3 w-100 select-box">
+            <label for="select7" class="form-label">Каким устройством вы пользуетесь для операций в интернете?</label>
+            <select id="select7" class="form-select" name="whatIsDevice" required>
+              <option disabled selected value="">Выберите вариант</option>
+              <option value="0">Мобильные телефоны(смартфоны)</option>
+              <option value="1">Персональный компьютер</option>
+              <option value="2">Не пользуетесь</option>
+            </select>
+          </div>
+          
+          <button type="submit" class="btn btn-primary w-75 mt-4">Отправить</button>
+          <button type="button" class="btn btn-success mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Посмотреть статистику
+          </button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Cтатистика всех полученных форм</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <ul class="list-group mb-5">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Получено форм:
+            <span class="badge bg-success rounded-pill"><%= countForms %></span>
+          </li>
+        </ul>
+
+        <div class="accordion" id="accordionExample">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Как часто вы совершаете покупки в интернет магазинах?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Не совершаю
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(shopOnline[0] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Редко
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(shopOnline[1] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Часто
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(shopOnline[2] / countForms * 100) %>%</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Пользуетесь ли вы Интернет-банкингом?
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Да
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(internetBank[0] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Нет
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(internetBank[1] / countForms * 100) %>%</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Вы совершаете внутриигровые покупки?
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Да
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(ingameBuy[0] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Нет
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(ingameBuy[1] / countForms * 100) %>%</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                Пользуетесь VPN?
+              </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Да
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(useVPN[0] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Нет
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(useVPN[1] / countForms * 100) %>%</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFive">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                Вы становились жертвами мошенников (ваши близкие)?
+              </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Да
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(victimScummers[0] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Нет
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(victimScummers[1] / countForms * 100) %>%</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSix">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                Вы становились жертвами мошенников (ваши близкие)?
+              </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Сложные пароли
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(securityInInternet[0] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Двухфакторная авторизация(аутентификация)
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(securityInInternet[1] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Антивирус
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(securityInInternet[2] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Постоянное шифрование
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(securityInInternet[3] / countForms * 100) %>%</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSeven">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                Происходили ли у вас утечки информации, взломы аккаунтов?
+              </button>
+            </h2>
+            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Да
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(leakInfo[0] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Нет
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(leakInfo[1] / countForms * 100) %>%</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingEight">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                Каким устройством вы пользуетесь для операций в интернете?
+              </button>
+            </h2>
+            <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Мобильные телефоны(смартфоны)
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(whatIsDevice[0] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Персональный компьютер
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(whatIsDevice[1] / countForms * 100) %>%</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Не пользуетесь
+                    <span class="badge bg-primary rounded-pill"><%= 0 | Math.round(whatIsDevice[2] / countForms * 100) %>%</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn btn-danger deleteFormData">Удалить данные о формах</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const deleteFormDataBtn = document.querySelector(".deleteFormData");
+  deleteFormDataBtn.addEventListener("click", () => {
+    location.pathname = "./cleardb"
+  })
+</script>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
