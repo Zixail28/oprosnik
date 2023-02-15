@@ -72,7 +72,11 @@ app.post("/form", (req, response) => {
     .catch((err) => { console.log(err); })
 })
 
-app.get("/form", (req, response) => {
+// app.get("/", (req, response) => {
+//   response.sendFile(__dirname, index.html)
+// });
+
+app.get("/", (req, response) => {
   Formdata.find()
   .then((res) => { 
     convertingData(res);
@@ -91,7 +95,7 @@ app.get("/cleardb", (req, response) => {
 });
 
 app.listen(PORT,() => {
-  console.log(`Server listening at http://${process.env.DOMEN}:${PORT}/form`)
+  console.log(`Server listening at http://${process.env.DOMEN}:${PORT}`)
 })
 
 function convertingData(arrOfFormdatas) {
@@ -144,3 +148,5 @@ function convertingData(arrOfFormdatas) {
     }
   }
 };
+
+module.exports = app;
